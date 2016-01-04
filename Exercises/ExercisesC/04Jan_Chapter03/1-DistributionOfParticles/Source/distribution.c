@@ -35,7 +35,7 @@ int main(void)
   // read the input parameters
   printf("Number of Particles N? ");
   fscanf(stdin,"%d",&N);
- 
+
   printf("Number of Compartments p? ");
   fscanf(stdin,"%d",&P);
 
@@ -48,7 +48,7 @@ int main(void)
     exit(1);
   }
 
-  // initialize 
+  // initialize
   for(i=0;i<N;i++)
   {
     for(j=0;j<P;j++)
@@ -64,9 +64,9 @@ int main(void)
     {
 
   // Distribute particles over the compartments:
-  // Loop over all particles, pick a random compartment, and add 
+  // Loop over all particles, pick a random compartment, and add
   // a particle to it.
-  // A random number in the interval [0,1> can be generated using 
+  // A random number in the interval [0,1> can be generated using
   // RandomNumber().
 
   // NumInComp[index] = number of particles in compartment 'index'.
@@ -74,7 +74,7 @@ int main(void)
       // start modification
       for(n=0;n<N;n++)
       {
-        NumInComp[(int)RandomNumber()*P] += 1;
+        NumInComp[(int)(RandomNumber()*P)] += 1;
       }
 
       // end modification
