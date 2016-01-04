@@ -1,0 +1,4 @@
+#! /bin/csh -f
+
+time ../../Source/tps.x input_tps
+

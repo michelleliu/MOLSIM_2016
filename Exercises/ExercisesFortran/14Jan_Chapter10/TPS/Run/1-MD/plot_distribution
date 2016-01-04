@@ -1,0 +1,7 @@
+set xlabel 'lambda'
+set ylabel 'P(lambda)'
+set title 'MD simulation'
+set grid
+set yrange[0:*]
+plot 'distribution.out' u 1:2 notitle  w l
+pause -1 "Hit return to continue"

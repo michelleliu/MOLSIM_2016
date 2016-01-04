@@ -1,0 +1,10 @@
+designT:20
+energyT:0.5
+chain no:0
+PhePheThrThrPhePhe
+Eint -200 Eext 0 Etot -200
+Cint 2 Cext 0 Ctot 2
+Nint 0 Next 0 Ntot 0
+systemsVar:0.0208333
+AA count:
+Phe 4, Thr 2, 

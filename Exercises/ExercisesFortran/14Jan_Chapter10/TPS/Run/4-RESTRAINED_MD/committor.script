@@ -1,0 +1,25 @@
+#!/bin/csh -f
+###################################################################################
+#
+# script to run a series of committor analysis simulations along the frames of a
+# previous TPS trajectory read from a restart file. Specify in the three lines
+# below which frames of the restart file to analyse:
+#
+set FIRSTFRAME=1
+set LASTFRAME=200000
+set INTERVAL=2000
+#
+###################################################################################
+set iframe=$FIRSTFRAME
+echo "#  Frame  Lambda[0]   Committor-value"
+echo "#  Frame  Lambda[0]   Committor-value" >! committor.dat
+while( $iframe < $LASTFRAME)
+  sed 's/RESTARTFROMFRAME XXX/RESTARTFROMFRAME '$iframe'/' input_committor >! input
+  ../tps.x input >! output
+  set lambda=`awk '{if($0~/lambda/)print $5}' output`
+  set committor=`awk '{if($0~/p =/)print $3}' output`
+  echo "   $iframe   $lambda   $committor" 
+  echo "   $iframe   $lambda   $committor" >> committor.dat
+  @ iframe += $INTERVAL
+end
+echo "Finished analysis. Data written to file (committor.dat)."

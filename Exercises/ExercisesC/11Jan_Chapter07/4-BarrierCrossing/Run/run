@@ -1,0 +1,14 @@
+#! /bin/csh -f
+
+set NCYCLE  = 100
+set NSTEP   = 1500
+set TEMP    = 0.5
+set TSTEP   = 0.003
+set QSTAR   = 0.2
+
+cat > input <<endofdata
+$NCYCLE $NSTEP  $TSTEP $TEMP $QSTAR
+endofdata
+time ../Source/barrier2
+rm input
+exit

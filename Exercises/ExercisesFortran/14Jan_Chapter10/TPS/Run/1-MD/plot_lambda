@@ -1,0 +1,7 @@
+set xlabel 'time / steps'
+set ylabel 'lambda'
+set title 'MD simulation'
+set grid
+set yrange[0:*]
+plot 'lambda.out' u 2:3 notitle  w l
+pause -1 "Hit return to continue"

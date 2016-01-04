@@ -1,0 +1,4 @@
+in each file look for the phrase "START CODING"
+main.cpp: the temperature can be set here
+Design2D.cpp: the different constraints on variance can be added here
+Simulation2D.cpp: the heat capacity sampling can be implemented here

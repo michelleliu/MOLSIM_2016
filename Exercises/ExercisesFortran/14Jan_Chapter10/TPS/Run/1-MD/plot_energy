@@ -1,0 +1,9 @@
+set xlabel 'time / steps'
+set ylabel 'Energy / kT'
+set title 'MD simulation'
+set grid
+set yrange[0:*]
+plot 'energies.out' u 2:3 t "Total Energy" w l
+rep 'energies.out' u 2:4 t "Kinetic Energy" w l
+rep 'energies.out' u 2:5 t "Potential Energy" w l
+pause -1 "Hit return to continue"

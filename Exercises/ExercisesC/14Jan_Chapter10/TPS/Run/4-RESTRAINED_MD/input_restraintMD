@@ -1,0 +1,14 @@
+METHOD MD              # MD/TPS/COMMITTOR
+ETOT 9.0               # target total energy in NVE simulation
+PATHLENGTH 200000      # total number of MD steps per path
+TIMESTEP 0.0005        # MD timestep
+NPRINTFRAME 100        # output frequency of positions and energies per path
+EPSILON 1.0            # epsilon
+BARRIERHEIGHT 2.0      # h
+BARRIERWIDTH 0.25      # w
+K_RESTRAINT 10000.0     # force constant in harmonic restraint potential on lambda V=0.5k(r-req)^2
+REQ_RESTRAINT 1.360    # equilibrium distance in harmonic restraint potential on lambda V=0.5k(r-req)^2
+RESTART 1              # if equal to 1 then read initial path from file "restart.in" 
+RESTARTFROMFRAME 995   # start from this frame number of restart file
+RESTARTFILE restart.in # restart input filename
+RESTARTOUT 1           # if 1 then write last trajectory to restart.out (file can be large!)

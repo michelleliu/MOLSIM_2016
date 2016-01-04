@@ -1,0 +1,19 @@
+set xlabel 'time / steps'
+set ylabel 'lambda'
+set title 'TPS simulation'
+set grid
+# set yrange[0:*]
+set xrange[-1000:6000]
+plot '../1-MD/lambda.out' u 2:3 index 0 t "MD run" w l
+replot 'lambda.out' u 2:3 index 0 t "restart path 0" w l
+replot 'lambda.out' u 2:3 index 1 t "path 100" w l
+replot 'lambda.out' u 2:3 index 2 t "path 200" w l
+replot 'lambda.out' u 2:3 index 3 t "path 300" w l
+replot 'lambda.out' u 2:3 index 4 t "path 400" w l
+replot 'lambda.out' u 2:3 index 5 t "path 500" w l
+replot 'lambda.out' u 2:3 index 6 t "path 600" w l
+replot 'lambda.out' u 2:3 index 7 t "path 700" w l
+replot 'lambda.out' u 2:3 index 8 t "path 800" w l
+replot 'lambda.out' u 2:3 index 9 t "path 900" w l
+replot 'lambda.out' u 2:3 index 10 t "path 1000" w l
+pause -1 "Hit return to continue"

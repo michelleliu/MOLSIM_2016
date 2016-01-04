@@ -1,0 +1,17 @@
+METHOD COMMITTOR       # MD/TPS/COMMITTOR
+ETOT 9.0               # target total energy in NVE simulation
+PATHLENGTH 2000        # total number of MD steps per path
+TIMESTEP 0.002         # MD timestep
+NPRINTFRAME 10         # output frequency of positions and energies per path
+NPRINTPATH 100         # output frequency of paths
+LEFTBOUND 1.30         # definition of stable state A
+RIGHTBOUND 1.45        # definition of stable state B
+EPSILON 1.0            # epsilon
+BARRIERHEIGHT 2.0      # h
+BARRIERWIDTH 0.25      # w
+NPATHS 100             # Number of successful pathways to generate
+RESTART 1              # if equal to 1 then read initial path from file "restart.in" 
+RESTARTFILE restart.out # restart input filename
+RESTARTFROMFRAME XXX    # take initial configuration from this frame of restart file
+RESTARTOUT 0           # if 1 then write last trajectory to restart.out (file can be large!)
+

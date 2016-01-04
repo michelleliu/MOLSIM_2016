@@ -1,0 +1,11 @@
+set terminal png
+set output "../output/Cv.png"
+
+set xlabel 'temperature'
+set ylabel 'heat capacity'
+set title 'Cv'
+set yrange [0:16] 
+set key right top
+set style data linespoints
+plot '../output/Cv.txt' title 'Cv'
+pause -1 "Hit return to continue"

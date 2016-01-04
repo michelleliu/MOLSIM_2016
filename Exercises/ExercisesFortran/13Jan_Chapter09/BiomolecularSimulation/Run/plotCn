@@ -1,0 +1,11 @@
+set terminal png
+set output "../output/Cn.png"
+
+set xlabel 'temperature'
+set ylabel 'fraction of native contacts'
+set title 'Cn'
+set key right top
+set style data linespoints
+set yrange [0:1]
+plot '../output/Cn.txt' title 'Cn'
+pause -1 "Hit return to continue"

@@ -1,0 +1,10 @@
+METHOD MD            # MD/TPS/COMMITTOR
+ETOT 9.0             # target total energy in NVE simulation
+PATHLENGTH 100000    # total number of MD steps per path
+TIMESTEP 0.002       # MD timestep
+NPRINTFRAME 10       # output frequency of positions and energies per path
+EPSILON 1.0          # epsilon
+BARRIERHEIGHT 1.0    # h
+BARRIERWIDTH 0.25    # w
+RESTART 0            # if equal to 1 then read initial path from file "restart.in" 
+RESTARTOUT 1         # if 1 then write last trajectory to restart.out (file can be large!)

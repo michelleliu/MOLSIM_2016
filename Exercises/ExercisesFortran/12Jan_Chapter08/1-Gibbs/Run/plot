@@ -1,0 +1,21 @@
+set multiplot
+set xlabel 'mc cycle'
+set title 'Gibbs ensemble simulation'
+#set nokey
+set grid
+# first graph
+set size 0.33,1
+set origin 0,0
+set ylabel 'energy '
+plot 'lj.prt' using 1:2 title 'en. box 1' with li lw 2, 'lj.prt' using 1:3 title 'en. box 2' w li lw 2
+# second graph
+set origin 0.33,0
+set size 0.33,1
+set ylabel 'pressure '
+plot 'lj.prt' using 1:4 title 'press. box 1' with li lw 2, 'lj.prt' using 1:5 title 'press. box 2' w li lw 2
+# third graph
+set origin 0.66,0
+set size 0.33,1
+set ylabel 'density '
+plot 'lj.prt' using 1:6 title 'dens. box 1' with li lw 2, 'lj.prt' using 1:7 title 'dens. box 2' w li lw 2
+pause -1 "Hit return to continue"
