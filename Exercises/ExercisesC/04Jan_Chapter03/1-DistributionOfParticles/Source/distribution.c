@@ -21,7 +21,7 @@ double LnFactorial(int n)
 }
 
 // divide N particles among p compartments
-int main(void)
+int main(int argc, char*argv[] )
 {
   int i,j,k,index,n;
   int P,N,Ncycle;
@@ -32,15 +32,20 @@ int main(void)
   // initialize the random number generator with the system time
   InitializeRandomNumberGenerator(time(0l));
 
+  //printf("hello\n");
   // read the input parameters
-  printf("Number of Particles N? ");
-  fscanf(stdin,"%d",&N);
+  N=(int)strtol(argv[1],(char **)NULL, 10);
+  P=(int)strtol(argv[2],(char **)NULL, 10);
+  Ncycle=(int)strtol(argv[3],(char **)NULL, 10);
+  //printf("parameters: %d %d %d\n",N,P,Ncycle);
+  //printf("Number of Particles N? ");
+  //fscanf(stdin,"%d",&N);
 
-  printf("Number of Compartments p? ");
-  fscanf(stdin,"%d",&P);
+  //printf("Number of Compartments p? ");
+  //fscanf(stdin,"%d",&P);
 
-  printf("Number of Cycles (x %d)? ",CycleMultiplication);
-  fscanf(stdin,"%d",&Ncycle);
+  //printf("Number of Cycles (x %d)? ",CycleMultiplication);
+  //fscanf(stdin,"%d",&Ncycle);
 
   if(P<2||P>MAX_COMPARTMENTS||N<2||N>MAX_PARTICLES)
   {
