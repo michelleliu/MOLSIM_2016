@@ -23,7 +23,7 @@ double LnFactorial(int n)
 // divide N particles among p compartments
 int main(void)
 {
-  int i,j,k,index;
+  int i,j,k,index,n;
   int P,N,Ncycle;
   double Distribution[MAX_COMPARTMENTS][MAX_PARTICLES];
   int NumInComp[MAX_COMPARTMENTS];
@@ -72,6 +72,10 @@ int main(void)
   // NumInComp[index] = number of particles in compartment 'index'.
 
       // start modification
+      for(n=0;n<N;n++)
+      {
+        NumInComp[(int)RandomNumber()*P] += 1;
+      }
 
       // end modification
 
