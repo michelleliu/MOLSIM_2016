@@ -37,9 +37,12 @@ int main(void)
 
   for(i=0;i<NumberOfEnergyLevels;i++)
   {
-     tmp=exp(-Beta*i);
+     //tmp=exp(-Beta*i);
 
      // start modification
+     // tmp*=(1+i);
+     tmp= (2*i+1)*exp(-i*(i+1)/2*Beta);
+     
 
      // end modification
 
@@ -49,6 +52,7 @@ int main(void)
 
   // Write Results 
   FilePtr=fopen("results.dat","w");
+  printf("\nNormalized?: %f %f\n",Normalize,2.0/Beta);
   for(i=0;i<NumberOfEnergyLevels;i++)
     fprintf(FilePtr,"%d %f\n",i,Distribution[i]/Normalize);
   fclose(FilePtr);
