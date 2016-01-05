@@ -8,7 +8,7 @@
 #define FALSE 0
 #define TRUE 1
 
-#define BOXSIZE 10.0
+#define BOXSIZE 20.0
 #define MAX_PARTICLES 100
 
 enum{INITIALIZE,SAMPLE,WRITE_RESULTS};
