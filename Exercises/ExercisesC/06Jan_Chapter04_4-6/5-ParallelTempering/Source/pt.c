@@ -9,9 +9,10 @@
 
 // parallel tempering for a simple system
 int main(void)
-{ 
+{
   FILE *FilePtr;
   int i,j,system=0,SystemA=0,SystemB=0,NumberOfSteps,particle,k;
+  int m;
   double Rho,Del,U,Rxold,Ryold,swap=0.0;
   double DispSum[MAXNUMBEROFSYSTEMS],DispCount[MAXNUMBEROFSYSTEMS];
   double SwapSum[MAXNUMBEROFSYSTEMS],SwapCount[MAXNUMBEROFSYSTEMS];
@@ -89,7 +90,7 @@ int main(void)
   for(i=0;i<NumberOfSystems;i++)
     printf("Temp. (Energy)     : %f (%f)\n",Temp[i],Uold[i]);
 
-  // loop over all cycles 
+  // loop over all cycles
 
   for(i=0;i<NumberOfSteps;i++)
   {
@@ -117,9 +118,38 @@ int main(void)
       {
 
         // exchange trial move
-        // select temperatures at random 
+        // select temperatures at random
 
         // start modification
+        // pick systems
+        SystemA=(int)(RandomNumber()*NumberOfSystems-1);
+        SystemB=SystemA+1;
+
+        SwapCount[SystemA]+=1.0;
+
+        // accept or reject
+        if(RandomNumber()<exp((Beta[SystemA]-Beta[SystemB])*(Uold[SystemA]-Uold[SystemB]))) {
+          SwapSum[SystemA]+=1.0;
+
+          // switch positions
+          VECTOR PositionTmp;
+          double UTmp;
+          for(m=0;m<NUMBEROFPARTICLES;m++) {
+            PositionTmp.x=Positions[m][SystemA].x;
+            PositionTmp.y=Positions[m][SystemA].y;
+            Positions[m][SystemA].x=Positions[m][SystemB].x;
+            Positions[m][SystemA].y=Positions[m][SystemB].y;
+            Positions[m][SystemB].x=PositionTmp.x;
+            Positions[m][SystemB].y=PositionTmp.y;
+            //printf("changing %f to %f\n",Positions[m][SystemA].x,Positions[m][SystemB].x);
+          }
+
+          // swap energies
+          UTmp=Uold[SystemA];
+          Uold[SystemA]=Uold[SystemB];
+          Uold[SystemB]=UTmp;
+
+        }
 
         // end modification
       }
@@ -136,9 +166,9 @@ int main(void)
 
         Positions[particle][system].x+=(RandomNumber()-0.5)*0.05;
         Positions[particle][system].y+=(RandomNumber()-0.5)*0.05;
-               
+
         // check for acceptance
-        // check boundaries first 
+        // check boundaries first
 
         if(MIN(Positions[particle][system].x,Positions[particle][system].y)>0.0&&
            MAX(Positions[particle][system].x,Positions[particle][system].y)<Box)
@@ -192,7 +222,7 @@ int main(void)
   printf("Fraction Accepted Exchanges:\n");
 
   for(i=0;i<NumberOfSystems-1;i++)
-    if(SwapCount[i]>0.5) 
+    if(SwapCount[i]>0.5)
       printf("%d %d %f\n",i,i+1,SwapSum[i]/SwapCount[i]);
 
   return 0;

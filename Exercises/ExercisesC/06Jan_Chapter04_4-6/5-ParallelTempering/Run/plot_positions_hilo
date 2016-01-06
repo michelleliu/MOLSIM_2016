@@ -1,0 +1,9 @@
+set xlabel 'Fractional box position x'
+set ylabel 'Probability'
+set nokey
+set grid
+set xrange[0:*]
+set yrange[0:0.02]
+set output 'pt_positions_hilo.eps'
+set term postscript enhanced eps color solid 26
+plot 'results-with-swaps/position_distribution_subset.dat' us 1:2 notitle with li lw 3,'results-wo-swaps-lowT/position_distribution.dat' us 1:2 notitle with li lw 3,'results-wo-swaps-highT/position_distribution.dat' us 1:2 notitle with li lw 3

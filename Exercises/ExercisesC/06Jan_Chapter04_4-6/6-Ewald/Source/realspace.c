@@ -3,7 +3,7 @@
 #include <math.h>
 #include "system.h"
 
-// real Part; also direct calculation 
+// real Part; also direct calculation
 // loop over all particle pairs
 void Realspace(double *Ureal)
 {
@@ -15,9 +15,15 @@ void Realspace(double *Ureal)
 
   // start modification
   // 1. For all particle pairs calculate the distance in x, y, and z.
+  for(i=0;i<NumberOfParticles-1;i++) {
+    for(j=i+1;j<NumberOfParticles;j++) {
+        // FIXME do something
+
+    }
+  }
   // 2. Apply periodic boundary conditions where necessary.
-  // 3. Calculate the real-space contribution to the energy. 
-  // (Use the "ErrorFunctionComplement(x)" function.) 
+  // 3. Calculate the real-space contribution to the energy.
+  // (Use the "ErrorFunctionComplement(x)" function.)
 
 
   // end  modification
