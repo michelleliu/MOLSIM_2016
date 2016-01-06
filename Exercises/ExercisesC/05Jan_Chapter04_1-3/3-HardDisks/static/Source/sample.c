@@ -3,10 +3,10 @@
 #include <math.h>
 #include "system.h"
 
-#define MAXIMUM_NUMBER_OF_BINS 500
+#define MAXIMUM_NUMBER_OF_BINS 1500
 
 // samples the radial distribution function
-void Sample(int Ichoise)
+void Sample(int Option)
 {
   int i,j;
   static double Distribution[MAXIMUM_NUMBER_OF_BINS];
@@ -15,7 +15,7 @@ void Sample(int Ichoise)
   VECTOR dr;
   FILE *FilePtr;
 
-  switch(Ichoise)
+  switch(Option)
   {
     case INITIALIZE:
       for(i=0;i<MAXIMUM_NUMBER_OF_BINS;i++)
@@ -28,9 +28,29 @@ void Sample(int Ichoise)
     case SAMPLE:
       // Sample The Radial Distribution Function
       // Loop Over All Particle Pairs
-      // See Frenkel/Smit P. 77
+      // See Frenkel/Smit p. 86
 
       // Start Modification
+      Count += 1;
+      for(i=0;i<NumberOfParticles-1;i++) {
+        for(j=i+1;j<NumberOfParticles;j++) {
+          dr.x=Positions[i].x-Positions[j].x;
+          dr.y=Positions[i].y-Positions[j].y;
+
+          // apply boundary conditions
+          if(PBC)
+          {
+            dr.x-=BOXSIZE*rint(dr.x/BOXSIZE);
+            dr.y-=BOXSIZE*rint(dr.y/BOXSIZE);
+          }
+
+          r2=SQR(dr.x)+SQR(dr.y);
+          //    bin particles in Distribution[]
+          if( sqrt(r2) < BOXSIZE/2.0 ) {
+            Distribution[(int)( sqrt(r2)/Delta )] += 2.0;
+          }
+        }
+      }
 
       // End   Modification
       break;

@@ -3,7 +3,7 @@
 #include <math.h>
 #include "system.h"
 
-#define MAXIMUM_NUMBER_OF_BINS 1500
+#define MAXIMUM_NUMBER_OF_BINS 500
 
 // samples the radial distribution function
 void Sample(int Option)
