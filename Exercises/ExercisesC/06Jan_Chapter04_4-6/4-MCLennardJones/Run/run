@@ -8,21 +8,24 @@
 # dr     = maximum displacement
 # npart  = number of particles
 
-foreach rho ( 0.1 )
+foreach rho ( 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 )
+mkdir $rho
+cd $rho
 
 cat > input  <<endofdata
-  ibeg  nequil   lmax  nsamp  
-     0  10000    10000      1        
+  ibeg  nequil   lmax  nsamp
+     0  10000    10000      1
     dr
-  0.09 
+  0.09
 ndispl
-    50  
+    50
  npart    temp    rho
-   500     2.0  ${rho} 
+   500     2.0  ${rho}
  epsilon sigma  mass  cutoff
  1.0     1.0    1.0   3.5
 endofdata
-time  ../Source/mc_nvt
+time  ../../Source/mc_nvt > output
 rm input
+cd ../
 end
 exit
