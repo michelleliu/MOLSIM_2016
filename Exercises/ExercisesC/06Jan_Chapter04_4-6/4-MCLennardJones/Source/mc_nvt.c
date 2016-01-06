@@ -85,6 +85,9 @@ int main(void)
           // start modification question 4
           // Heat capacity. You can use variables EnergySum, EnergyCount,
           // and EnergySquaredSum.
+          EnergySum += RunningEnergy;
+          EnergySquaredSum += RunningEnergy*RunningEnergy;
+          EnergyCount += 1;
 
           // end modification
 
