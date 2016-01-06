@@ -10,6 +10,8 @@ void EnergyParticle(VECTOR pos,int i,int jb,double *En,double *Vir)
   VECTOR dr;
   int j;
 
+  double r;
+
   Enij=Virij=0.0;
   for(j=jb;j<NumberOfParticles;j++)
   {
@@ -34,7 +36,8 @@ void EnergyParticle(VECTOR pos,int i,int jb,double *En,double *Vir)
         Enij+=4.0*Epsilon*(SQR(r6i)-r6i);
 
         // start modification virial
-
+        Virij += -24*Epsilon*(2*SQR(r6i)-r6i);
+          
         // end modification virial
       }
     }
