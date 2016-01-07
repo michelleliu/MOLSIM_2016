@@ -21,6 +21,7 @@
 void SampleDiff(int Switch)
 {
   int t0index,i,j,CorrelTime;
+  int minopt;
   double CumIntegration;
   static int time,t0time[MAXT0],t0Counter,SampleCounter[MAXT];
   static double Vacf[MAXT],R2[MAXT];
@@ -55,14 +56,52 @@ void SampleDiff(int Switch)
         // Frenkel/Smit. in this Way, you will have to think more... 
 
         // start modification
+        t0Counter += 1;
+        t0index = t0Counter%MAXT0;
 
+        t0time[t0index] = time;
 
+        for(i=0; i<NumberOfParticles; i++)
+        {
+            Vxt0[i][t0index] = Velocities[i].x;
+            Vyt0[i][t0index] = Velocities[i].y;
+            Vzt0[i][t0index] = Velocities[i].z;
+            Rx0[i][t0index] = PositionsNONPDB[i].x;
+            Ry0[i][t0index] = PositionsNONPDB[i].y;
+            Rz0[i][t0index] = PositionsNONPDB[i].z;
+        }
         // end modification
       }
 
       // loop over all time origins that have been stored
 
       // start modification
+      if (t0Counter < MAXT0)
+      {
+        minopt = t0Counter;
+      } else {
+        minopt = MAXT0;
+      }
+ 
+      for(i=0; i < minopt; i++)
+      {
+        CorrelTime = time - t0time[i];
+
+        if(CorrelTime < MAXT)
+        {
+          SampleCounter[i] += 1;
+          for(j = 0; j < NumberOfParticles; j++)
+          {
+            Vacf[CorrelTime] += (Velocities[j].x*Vxt0[j][i]) + 
+                                (Velocities[j].y*Vyt0[j][i]) + 
+                                (Velocities[j].z*Vzt0[j][i]);
+
+            R2[CorrelTime] += pow((PositionsNONPDB[j].x - Rx0[j][i]),2.0) +
+                              pow((PositionsNONPDB[j].y - Ry0[j][i]),2.0) +
+                              pow((PositionsNONPDB[j].z - Rz0[j][i]),2.0);
+          }
+        }
+      }
 
       // end modification
       break;
