@@ -89,7 +89,7 @@ void SampleDiff(int Switch)
 
         if(CorrelTime < MAXT)
         {
-          SampleCounter[i] += 1;
+          SampleCounter[CorrelTime] += 1;
           for(j = 0; j < NumberOfParticles; j++)
           {
             Vacf[CorrelTime] += (Velocities[j].x*Vxt0[j][i]) + 
