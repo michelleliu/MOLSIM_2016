@@ -9,12 +9,12 @@ double Angle(VECTOR dr1,VECTOR dr2)
 {
   double a,U;
   // dr1:          vector from I-1 to I
-  // dr2:          vector from I-1 to I-2 
+  // dr2:          vector from I-1 to I-2
   // U:            angular potential energy
   // a:            cosine of the angle formed by the three beads
 
-  //      Calculate the cosine a of the angle formed by the  vectors dr1 and dr2 by calculating their dot product: 
-  //         dr1.dr2 = |dr1| |dr2| cos(dr1^dr2) <=> 
+  //      Calculate the cosine a of the angle formed by the  vectors dr1 and dr2 by calculating their dot product:
+  //         dr1.dr2 = |dr1| |dr2| cos(dr1^dr2) <=>
   //     <=> cos(dr1^dr2) = dr1.dr2/(|dr1|*|dr2|)
 
   a=(dr1.x*dr2.x+dr1.y*dr2.y+dr1.z*dr2.z)/
@@ -38,7 +38,7 @@ double Repulsion(VECTOR dr)
 
   R=sqrt(SQR(dr.x)+SQR(dr.y)+SQR(dr.z));
   U=0.0;
-  // If the distance between the two beads is less than cutoff, calculate the repulsive energy.  
+  // If the distance between the two beads is less than cutoff, calculate the repulsive energy.
   //   Otherwise, the repulsive energy is 0.
 
   if(R<Rcut) U=A*SQR(R-Rcut)/SQR(Rcut);
@@ -69,9 +69,9 @@ void Grow(int LOldChain,double *Weight,double *Ubonded,double *Unonb)
   TrialPositions[0].y=0.0;
   TrialPositions[0].z=0.0;
 
-  // Grow The Chain; Loop Over All Segments Exept The First One 
-  // 
-  // Positions            : Position Of The Old Chain 
+  // Grow The Chain; Loop Over All Segments Exept The First One
+  //
+  // Positions            : Position Of The Old Chain
   // TrialPositions       : Position Of The Trial Chain
   // Trial                : Position Of A Trial Segment
   // Lcbmc                : Do We Use Cbmc (.True. Or .False.)
@@ -83,13 +83,13 @@ void Grow(int LOldChain,double *Weight,double *Ubonded,double *Unonb)
   {
     // loop over all trial positions
     for(j=0;j<Ntrial;j++)
-    { 
+    {
       do
       {
         BendEnergy[j]=0.0;
         ExternalEnergy[j]=0.0;
         LValidTrial=FALSE;
-            
+
         // generate trial position
         // j=0 And LOldChain : old position
         // Otherwise    : new position
@@ -98,19 +98,19 @@ void Grow(int LOldChain,double *Weight,double *Ubonded,double *Unonb)
         // trial positions are stored in Trial
         // function RanSphere(&vec): creates a random unit
         // vector on a sphere centered at (0,0,0)
-         
+
           // if an old chain exists, we must retrace it to obtain its
           // statistical weight; in that case the position of bead I in the old chain is also used as the first trial position of bead I
 
           // Note: retracing the old chain is not indispensable in our example
           // because we only have one chain; instead we could have just saved its statistical
-          // weight from the previous step.    
+          // weight from the previous step.
           // However, in a real CBMC implementation with more than one chain, the
           // environment of the chain may have changed since the previous time its
           // statistical weight was calculated; in that case, retracing is necessary. To
           // keep the algorithm general, CBMC is always implemented with retracing of
           // the old chain.
- 
+
           if(j==0&&LOldChain)
           {
             Trial[j].x=Positions[i].x;
@@ -122,8 +122,11 @@ void Grow(int LOldChain,double *Weight,double *Ubonded,double *Unonb)
           {
         // start modification
 
+            RanSphere(&vec);
 
-
+            Trial[j].x=vec.x;
+            Trial[j].y=vec.y;
+            Trial[j].z=vec.z;
 
         // end modification
           }
@@ -146,7 +149,7 @@ void Grow(int LOldChain,double *Weight,double *Ubonded,double *Unonb)
         // accept or reject the chosen configuration
         // this is for cmbc only, because only in cbmc
         // a trial position according to a bond-bending
-        // potential has to be generated... 
+        // potential has to be generated...
         // when j=0&&LOldChain : always accepted !! (why?)
 
         if(Lcbmc)
@@ -157,7 +160,9 @@ void Grow(int LOldChain,double *Weight,double *Ubonded,double *Unonb)
             {
           // start modification
           // Accept or reject the other trial positions according to the Metropolis algorithm
-
+              if(RandomNumber()<exp(-Beta*BendEnergy[j])) {
+                LValidTrial=TRUE;
+              }
 
           // end modification
             }
@@ -166,7 +171,7 @@ void Grow(int LOldChain,double *Weight,double *Ubonded,double *Unonb)
           LValidTrial=TRUE;
       } while(!LValidTrial);
 
-      // calculate the external energy 
+      // calculate the external energy
       // only when there are at least 4 beads...
       if(i>2)
       {
@@ -182,7 +187,7 @@ void Grow(int LOldChain,double *Weight,double *Ubonded,double *Unonb)
 
     // end loop over all trial positions
 
-    // choose a trial position for cbmc 
+    // choose a trial position for cbmc
     // for cbmc and an old config.: 1st config.
     Ws=0.0;
     Iwalk=0;

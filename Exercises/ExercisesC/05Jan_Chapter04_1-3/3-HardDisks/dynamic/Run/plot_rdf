@@ -5,4 +5,5 @@ set nokey
 set grid
 set xrange[0:*]
 plot 'rdf.dat' us 1:2 notitle with li lw 3
+set arrow from 0,1 to 10,1
 pause -1 "Hit return to continue"

@@ -3,6 +3,7 @@ set ylabel 'occupation'
 set title 'Energy distribution over the harmonic oscillators'
 set nokey
 plot 'results.dat' with li lw 3
+#plot 'results-nve-1000-5000-50000-nve.dat' with li lw 3
 pause -1 "Hit return to continue"
 
 

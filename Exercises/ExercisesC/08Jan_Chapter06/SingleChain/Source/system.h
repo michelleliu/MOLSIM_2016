@@ -4,6 +4,7 @@
 
 #define FALSE 0
 #define TRUE 1
+#define PI 3.14159265359
 
 enum{INITIALIZE,SAMPLE,WRITE_RESULTS};
 

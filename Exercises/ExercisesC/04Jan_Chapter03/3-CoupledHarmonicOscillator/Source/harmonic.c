@@ -28,7 +28,7 @@ int main(void)
 
   // initialize the random number generator with the system time
   InitializeRandomNumberGenerator(time(0l));
- 
+
   // read the input parameters
   TotalEnergy=0;
   Beta=0.0;
@@ -96,7 +96,7 @@ int main(void)
     i=0;
     do
     {
-      if(i>=NumberOfOscillators) 
+      if(i>=NumberOfOscillators)
         i=0;
       Oscillator[i]++;
       i++;
@@ -104,7 +104,7 @@ int main(void)
     }
     while(Utot!=TotalEnergy);
   }
-      
+
   Utot=0;
   for(i=0;i<NumberOfOscillators;i++)
     Utot+=Oscillator[i];

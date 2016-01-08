@@ -11,7 +11,7 @@
 # KT        = BOND-BENDING CONSTANT
 # THETA=    = EQUILIBRIUM ANGLE [RADIANS]
 
-set NSTEP     = 500
+set NSTEP     = 5000
 set NINIT     = 5
 set TEMP      = 2.0
 set NCHOI     = 1
