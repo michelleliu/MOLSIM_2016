@@ -1,0 +1,9 @@
+set nokey
+set grid
+set xlabel 'ChemPot [-]' 
+set ylabel 'Pressure [-]' 
+set output 'phaseeq.eps'
+set term postscript eps enhanced color solid 26
+plot 'Results' us 2:3 w l, 'Results' us 2:3 w po lt 1 pt 5 ps 2
+
+

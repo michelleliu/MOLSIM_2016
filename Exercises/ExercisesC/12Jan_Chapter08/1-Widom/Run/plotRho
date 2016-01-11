@@ -6,3 +6,4 @@ set output 'chempot.eps'
 set term postscript eps enhanced color solid 26
 plot 'Results' us 1:2 w l, 'Results' us 1:2 w po lt 1 pt 5 ps 2
 
+
