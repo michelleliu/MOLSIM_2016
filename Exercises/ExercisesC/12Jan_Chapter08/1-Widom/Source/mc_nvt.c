@@ -93,6 +93,14 @@ int main(void)
           for(k=0;k<10;k++)
           {
             // start modification
+            pos.x = RandomNumber()*Box;
+            pos.y = RandomNumber()*Box;
+            pos.z = RandomNumber()*Box;
+
+            EnergyParticle(pos, NumberOfParticles, 0, &Dummy1, &Dummy2);
+
+            ChemicalPotentialSum += exp(-Beta*Dummy1);
+            ChemicalPotentialCount += 1.0;
 
 
             // end modification
