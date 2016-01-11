@@ -124,9 +124,9 @@ void Grow(int LOldChain,double *Weight,double *Ubonded,double *Unonb)
 
             RanSphere(&vec);
 
-            Trial[j].x=vec.x;
-            Trial[j].y=vec.y;
-            Trial[j].z=vec.z;
+            Trial[j].x=TrialPositions[i-1].x+vec.x;
+            Trial[j].y=TrialPositions[i-1].y+vec.y;
+            Trial[j].z=TrialPositions[i-1].z+vec.z;
 
         // end modification
           }
@@ -160,7 +160,7 @@ void Grow(int LOldChain,double *Weight,double *Ubonded,double *Unonb)
             {
           // start modification
           // Accept or reject the other trial positions according to the Metropolis algorithm
-              if(RandomNumber()<exp(-Beta*BendEnergy[j])) {
+              if(RandomNumber()<exp(-Beta*(BendEnergy[j]))) {
                 LValidTrial=TRUE;
               }
 
