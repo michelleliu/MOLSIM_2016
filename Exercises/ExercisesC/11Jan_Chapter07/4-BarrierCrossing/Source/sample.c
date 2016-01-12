@@ -27,6 +27,12 @@ void Sample(int Switch, int Ttt)
       // the maximum time equals Maxx
 
       // begin modification
+      if(Ttt<Maxx) {
+        if(Xpos>=Qstar) {
+          Kt[Ttt] += Theta*1.0;
+        }
+        Ks[Ttt] += fabs(Theta);
+      }
 
       // end modification
       break;

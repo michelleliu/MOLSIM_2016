@@ -22,7 +22,7 @@ void MdLoop(void)
     {
       // generate initial coordinates
       //
-      // perform 1000*Ncycle MD simulations with 
+      // perform 1000*Ncycle MD simulations with
       // different initial conditions
       //
       // Xpos   = starting position
@@ -33,8 +33,8 @@ void MdLoop(void)
       // To Program:
       //
       // -Generate Initial Position/Velocity
-      // -Integrate The Equations Of Motion By A 
-      //  Function Call To Subroutine Integrate 
+      // -Integrate The Equations Of Motion By A
+      //  Function Call To Subroutine Integrate
       // -Beware That In Integrate The Subroutine
       //  Sample Is Called !!
       //
@@ -42,6 +42,15 @@ void MdLoop(void)
       // Simulations) Equals CumEnergyDrift/CumCycles
 
       // start modification
+
+      Xpos = Qstar;
+      Vpos = RandomVelocity(Temperature);
+      Theta = Vpos;
+
+      Integrate(&EnergyDrift);
+
+      CumEnergyDrift += EnergyDrift;
+      CumCycles += 1.0;
 
       // end modification
 
