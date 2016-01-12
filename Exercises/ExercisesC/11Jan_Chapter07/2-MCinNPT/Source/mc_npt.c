@@ -90,7 +90,8 @@ int main(void)
         NumberOfVolumeTrials++;
         Vold=CUBE(Box);
         Boxold=Box;
-        Vnew=exp(log(Vold)+(RandomNumber()-0.5)*MaximumVolumeChange);
+        //Vnew=exp(log(Vold)+(RandomNumber()-0.5)*MaximumVolumeChange); // random walk in lnV
+        Vnew=(Vold)+(RandomNumber()-0.5)*MaximumVolumeChange; // random walk in 
 
         Box=pow(Vnew,1.0/3.0);
 
@@ -129,7 +130,8 @@ int main(void)
         }
 
         // no overlap... use acceptance rule
-        if((!overlap)&&(RandomNumber()<exp(-Beta*Pressure*(Vnew-Vold)+log(Vnew/Vold)*(NumberOfParticles+1.0))))
+        // Acceptance in ln(V) if((!overlap)&&(RandomNumber()<exp(-Beta*Pressure*(Vnew-Vold)+log(Vnew/Vold)*(NumberOfParticles+1.0))))
+        if((!overlap)&&(RandomNumber()<exp(-Beta*Pressure*(Vnew-Vold)+log(Vnew/Vold)*(NumberOfParticles)))) // Acceptance in V
         {
           NumberOfVolumeAccepted++;
         }
