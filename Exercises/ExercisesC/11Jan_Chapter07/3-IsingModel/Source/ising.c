@@ -165,7 +165,7 @@ int main(void)
       {
         Inew=Ilat+Iup[i];
         Jnew=Jlat+Jup[i];
-        Diff+=Lattice[i][j]*Lold;
+        Diff+=Lattice[Inew][Jnew]*2.0*Lold;
       }
 
       // end modification
