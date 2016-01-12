@@ -9,7 +9,7 @@
 
 // 2d Ising Model
 // No Periodic boundary conditions
-// 4 Neighbors 
+// 4 Neighbors
 
 #define MAX_LATTICE_SIZE 32
 #define Maxmag 1024
@@ -33,8 +33,8 @@ int main(void)
   FILE *FilePtr;
 
   InitializeRandomNumberGenerator(time(0l)) ;
- 
-  // read info 
+
+  // read info
   printf("2d Ising Model, 4 Neightbors, No Pbc\n\n");
 
   printf("Lattice Size                     ? ");
@@ -45,7 +45,7 @@ int main(void)
     printf("error in input parameters\n");
     exit(1);
   }
-      
+
   printf("Beta                             ? ");
   fscanf(stdin,"%lf",&Beta);
 
@@ -60,8 +60,8 @@ int main(void)
 
   for(i=0;i<MAX_MAGNETIZATION;i++)
     W[i]=1.0;
-      
-  // multicanonical algorithm 
+
+  // multicanonical algorithm
   FilePtr=fopen("w.dat","r");
   for(i=0;i<MAX_MAGNETIZATION;i+=2)
   {
@@ -74,13 +74,13 @@ int main(void)
     W[j]=Av1;
   }
   fclose(FilePtr);
-      
+
   NumberOfInitializationSteps=NumberOfCycles/3;
   Av1=0.0;
   Av2=0.0;
   Move1=0.0;
   Move2=0.0;
-      
+
   if(NumberOfInitializationSteps>100) NumberOfInitializationSteps=100;
 
   for(i=0;i<2*MAX_MAGNETIZATION+1;i++)
@@ -88,7 +88,7 @@ int main(void)
 
   // Initialize Lattice
   // Random Lattice
-  // 
+  //
   // add one boundary layer with spin=0
   // this is a way to avoid if-statements
   // in the computation of the energy
@@ -133,7 +133,7 @@ int main(void)
     printf("Initial Energy             : %f\n",Energy);
     printf("Initial Magnetization      : %d\n",Magnetization);
     printf("\n");
-      
+
     if(fabs(Magnetization)>MAX_MAGNETIZATION)
     {
       printf("|Magnetization|>MAX_MAGNETIZATION\n");
@@ -149,39 +149,48 @@ int main(void)
       // Metropolis algorithm
       Ilat=1+(int)(RandomNumber()*LatticeSize);
       Jlat=1+(int)(RandomNumber()*LatticeSize);
-            
+
       Mold=Magnetization;
       Lold=Lattice[Ilat][Jlat];
       Lnew=-Lold;
       Mnew=Mold+Lnew-Lold;
       Diff=0;
       Move2=Move2+1.0;
-            
+
       // calculate the energy difference
       // between new and old
 
       // start modification
+      for(i=0;i<4;i++)
+      {
+        Inew=Ilat+Iup[i];
+        Jnew=Jlat+Jup[i];
+        Diff+=Lattice[i][j]*Lold;
+      }
 
       // end modification
 
       // acceptance/rejection rule
-      // use weight function W 
+      // use weight function W
       if(RandomNumber()<exp(-Beta*Diff+W[abs(Mnew)]-W[abs(Mold)]))
       {
         // update the lattice/energy/magnetisation
         Move1=Move1+1.0;
 
         // start modification
+        Magnetization=Mnew;
+        Energy+=Diff;
+        Lattice[Ilat][Jlat]=Lnew;
 
         // end modification
-               
+
         if(fabs(Magnetization)>MAX_MAGNETIZATION)
         {
           printf("Increase the value of maxmag\n");
           exit(0);
         }
       }
-                  
+
       if(l>NumberOfInitializationSteps)
       {
         Weight=exp(-W[abs(Magnetization)]);
@@ -203,7 +212,7 @@ int main(void)
   // calculate distributions magnetization
   Dist2=0.0;
   Dist3=0.0;
-            
+
   for(i=-MAX_MAGNETIZATION;i<=MAX_MAGNETIZATION;i+=2)
   {
     Weight=exp(-W[abs(i)]);
@@ -240,7 +249,7 @@ int main(void)
   for(i=0;i<=MAX_MAGNETIZATION;i+=2)
     fprintf(FilePtr,"%d %f\n",i,Dist1[i+MAX_MAGNETIZATION]);
   fclose(FilePtr);
-      
+
   // calculate final energy
   // used to check the code
   Energy=0;
