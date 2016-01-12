@@ -1,0 +1,7 @@
+set xlabel 'Magnetization'
+set ylabel 'distribution'
+set title 'Distribution of Magnetization'
+set key left top box
+plot 'type1/magnetic.dat' us 1:2 title 'distribution sim type1' with li,'type1/magnetic.dat' us 1:3 title 'corrected type1' with li, 'type2/magnetic.dat' us 1:2 title 'distribution sim type2' with li,'type2/magnetic.dat' us 1:3 title 'corrected type2' with li, 'type3/magnetic.dat' us 1:2 title 'distribution sim type3' with li,'type3/magnetic.dat' us 1:3 title 'corrected type3' with li
+
+pause -1 "Hit return to continue"
