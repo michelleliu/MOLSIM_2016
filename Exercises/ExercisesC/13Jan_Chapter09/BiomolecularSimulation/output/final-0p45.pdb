@@ -1,0 +1,18 @@
+MODEL 
+ATOM      0  CA  Asp A   0        168     168       0   1.00 22.00
+ATOM      1  CA  Phe A   1        168     171       0   1.00 22.00
+ATOM      2  CA  Lys A   2        168     174       0   1.00 22.00
+ATOM      3  CA  Thr A   3        165     174       0   1.00 22.00
+ATOM      4  CA  Lys A   4        165     177       0   1.00 22.00
+ATOM      5  CA  Asp A   5        165       0       0   1.00 22.00
+ATOM      6  CA  Phe A   6        165       3       0   1.00 22.00
+ATOM      7  CA  Lys A   7        165       6       0   1.00 22.00
+ATOM      8  CA  Thr A   8        168       6       0   1.00 22.00
+ATOM      9  CA  Phe A   9        168       3       0   1.00 22.00
+ATOM     10  CA  Lys A  10        168       0       0   1.00 22.00
+ATOM     11  CA  Asp A  11        168     177       0   1.00 22.00
+ATOM     12  CA  Thr A  12        171     177       0   1.00 22.00
+ATOM     13  CA  Asp A  13        171       0       0   1.00 22.00
+ATOM     14  CA  Phe A  14        171       3       0   1.00 22.00
+ATOM     15  CA  Thr A  15        174       3       0   1.00 22.00
+TER   

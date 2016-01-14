@@ -1,0 +1,94 @@
+---------
+RUNNING SIMULATE Case=1 Temp=3.0
+---------
+Design a sequence (y/n)?Give file name of pdb structure (default ../input/default.pdb)
+using ../output/1-3.0/design.pdb
+Starting simulation 
+4 different residues
+reading file ../output/1-3.0/design.pdb
+ATOM*CA*Thr*0*60*60*0*1*22
+ATOM*CA*Thr*1*63*60*0*1*22
+ATOM*CA*Asp*2*66*60*0*1*22
+ATOM*CA*Thr*3*69*60*0*1*22
+ATOM*CA*Asp*4*69*63*0*1*22
+ATOM*CA*Phe*5*66*63*0*1*22
+ATOM*CA*Phe*6*63*63*0*1*22
+ATOM*CA*Lys*7*60*63*0*1*22
+ATOM*CA*Lys*8*60*66*0*1*22
+ATOM*CA*Phe*9*63*66*0*1*22
+ATOM*CA*Thr*10*66*66*0*1*22
+ATOM*CA*Lys*11*69*66*0*1*22
+ATOM*CA*Asp*12*69*69*0*1*22
+ATOM*CA*Phe*13*66*69*0*1*22
+ATOM*CA*Lys*14*63*69*0*1*22
+ATOM*CA*Asp*15*60*69*0*1*22
+number of chains: 1
+Eint -269 Eext 0 Etot -269
+Cint 6 Cext 0 Ctot 6
+Nint 4 Next 0 Ntot 4
+Eint -271 Eext 0 Etot -271
+Cint 8 Cext 0 Ctot 8
+Nint 3 Next 0 Ntot 3
+Eint -208 Eext 0 Etot -208
+Cint 3 Cext 0 Ctot 3
+Nint 1 Next 0 Ntot 1
+Eint -94 Eext 0 Etot -94
+Cint 3 Cext 0 Ctot 3
+Nint 1 Next 0 Ntot 1
+Eint -211 Eext 0 Etot -211
+Cint 4 Cext 0 Ctot 4
+Nint 1 Next 0 Ntot 1
+Eint -208 Eext 0 Etot -208
+Cint 3 Cext 0 Ctot 3
+Nint 1 Next 0 Ntot 1
+Eint 0 Eext 0 Etot 0
+Cint 0 Cext 0 Ctot 0
+Nint 0 Next 0 Ntot 0
+Eint -214 Eext 0 Etot -214
+Cint 4 Cext 0 Ctot 4
+Nint 1 Next 0 Ntot 1
+Eint 52 Eext 0 Etot 52
+Cint 3 Cext 0 Ctot 3
+Nint 0 Next 0 Ntot 0
+Eint 0 Eext 0 Etot 0
+Cint 0 Cext 0 Ctot 0
+Nint 0 Next 0 Ntot 0
+Eint -76 Eext 0 Etot -76
+Cint 3 Cext 0 Ctot 3
+Nint 1 Next 0 Ntot 1
+Eint 38 Eext 0 Etot 38
+Cint 1 Cext 0 Ctot 1
+Nint 0 Next 0 Ntot 0
+Eint 15 Eext 0 Etot 15
+Cint 2 Cext 0 Ctot 2
+Nint 0 Next 0 Ntot 0
+Eint -76 Eext 0 Etot -76
+Cint 1 Cext 0 Ctot 1
+Nint 1 Next 0 Ntot 1
+Eint -50 Eext 0 Etot -50
+Cint 4 Cext 0 Ctot 4
+Nint 1 Next 0 Ntot 1
+Eint -82 Eext 0 Etot -82
+Cint 2 Cext 0 Ctot 2
+Nint 0 Next 0 Ntot 0
+Eint -47 Eext 0 Etot -47
+Cint 3 Cext 0 Ctot 3
+Nint 0 Next 0 Ntot 0
+Eint -76 Eext 0 Etot -76
+Cint 1 Cext 0 Ctot 1
+Nint 0 Next 0 Ntot 0
+Eint -16 Eext 0 Etot -16
+Cint 3 Cext 0 Ctot 3
+Nint 1 Next 0 Ntot 1
+Eint 0 Eext 0 Etot 0
+Cint 0 Cext 0 Ctot 0
+Nint 0 Next 0 Ntot 0
+Eint -3 Eext 0 Etot -3
+Cint 1 Cext 0 Ctot 1
+Nint 0 Next 0 Ntot 0
+Eint -82 Eext 0 Etot -82
+Cint 2 Cext 0 Ctot 2
+Nint 0 Next 0 Ntot 0
+printing to ../output/Cv.txt
+printing to ../output/Cn.txt
+printing to ../output/finalConfiguration.pdb

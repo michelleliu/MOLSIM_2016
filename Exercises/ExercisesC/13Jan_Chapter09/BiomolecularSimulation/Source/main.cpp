@@ -44,10 +44,17 @@ int main(){
   // start design
   if(design){
     printf("Starting design program\n");
-    
+
     // START CODING
     // change your design temperature here
-    double temperature =8;
+    double temperature, Dummy1, Dummy2, Dummy3;
+    int designcase;
+    FILE *FilePtr;
+    FilePtr=fopen("input","r");
+    fscanf(FilePtr,"%*s %*s %*s %*s\n");
+    fscanf(FilePtr,"%lf %d %lf %lf",&temperature, &designcase, &Dummy2, &Dummy3);
+    fclose(FilePtr);
+
     // END CODING
 
     int mc_steps =10000000;
@@ -56,37 +63,37 @@ int main(){
     // fn_aa gives the pair potential
     Design2D * designProgram = new Design2D(fn_aa);
 
-   
+
 
     // initialise PDB amino acid distribution for design
-    designProgram->initStructure(fn_pdb); 
+    designProgram->initStructure(fn_pdb);
 
     // design procedure using distribution of amino acids
     designProgram->initAADistribution(fn_aa_distr);
-   
+
     // run design MC, see Design2D.cpp
-    designProgram->designProcedure(temperature, mc_steps);
-    
+    designProgram->designProcedure(temperature, mc_steps, designcase);
+
     // write design to design.pdb and statistics to stdout
     designProgram->writeDesignStats("../output/design.pdb");
 
 
     // start simulation
   }else{
-    printf("Starting simulation \n"); 
+    printf("Starting simulation \n");
 
 
-   
+
 
     // Simulation
     Simulation2D * program = new Simulation2D(fn_aa);
     int mc_steps=1000000;
     int step=0;
-    
+
     program->init(fn_pdb);
     // simulate the chain for several temperatures t
     int totalSamples;
-    for(double t=0.1;t<1.2;t+=0.05){
+    for(double t=0.1;t<0.4;t+=0.05){
       totalSamples = program->simulate(mc_steps,t,step);
       program->checkStats();
       step++;

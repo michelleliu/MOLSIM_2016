@@ -1,0 +1,35 @@
+#!/bin/bash
+
+for C in 0 1 2
+do
+
+for T in 0.1 0.5 3.0
+do
+
+echo ""
+echo "---------"
+echo "RUNNING DESIGN Case $C Temp $T"
+echo "---------"
+
+cat > input <<EOF
+Temp Case Dummy2 Dummy3
+$T $C 1.0 1.0
+EOF
+
+output=output-$C-$T
+echo "---------" > $output
+echo "RUNNING DESIGN Case=$C Temp=$T" >> $output
+echo "---------" >> $output
+echo y ../input/default.pdb | time ../Source/lattice2d >> $output
+
+mkdir ../output/$C-$T
+mv ../output/design.pdb ../output/$C-$T/design.pdb
+
+rm input
+
+grep 'RUNNING' $output |cut -d : -f 4 > data;
+grep 'RUNNING' $output |cut -d : -f 6 > data;
+grep 'systemsVar' $output |cut -d : -f 6 > data;
+
+done
+done

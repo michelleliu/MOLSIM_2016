@@ -1,0 +1,25 @@
+#!/bin/bash
+
+for C in 1
+do
+
+for T in 0.4
+do
+
+echo ""
+echo "---------"
+echo "RUNNING SIMULATE Case $C Temp $T"
+echo "---------"
+
+cat > input <<EOF
+Temp Case Dummy2 Dummy3
+$T $C 1.0 1.0
+EOF
+
+output=output-$C-$T
+echo n ../input/fold1.pdb | time ../Source/lattice2d
+
+rm input
+
+done
+done

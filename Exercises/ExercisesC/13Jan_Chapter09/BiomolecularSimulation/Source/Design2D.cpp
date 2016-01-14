@@ -2,7 +2,7 @@
  * \file   Design2D.cpp
  * \date   Oct 2010
  * \author Sanne Abeln
- * \brief  Implements Design2D 
+ * \brief  Implements Design2D
 */
 
 
@@ -19,7 +19,7 @@
 /// creates a new instance, while assigning a lattice
 Design2D::Design2D(string fn_aa){
   mainLattice = new Lattice2D;
-  mainLattice->setAA(fn_aa); 
+  mainLattice->setAA(fn_aa);
   q_variationStrength = 0.05;
 }
 
@@ -41,7 +41,7 @@ void Design2D::initAADistribution(string fn_in){
 
 /// read an amino acid distributions
 /// which is used by the design process to keep the variance similar
-/// Note, the sequence file and AA interaction matrix 
+/// Note, the sequence file and AA interaction matrix
 /// need to be read in first
 /// \param fn_in file name containing aa distribution
 /// \param aai reference to AA interaction matrix
@@ -64,7 +64,7 @@ void Design2D::setAADistribution(string fn_in, AA* aai){
     int freq;
     sscanf(line,"%3s%d",aa_c,&freq);
     string aa = string(aa_c);
-    
+
     cout<< aa<<endl;
     //// check if aa order is same as in neteraction matrix
     if(aa != "HOH"){
@@ -86,16 +86,17 @@ void Design2D::setAADistribution(string fn_in, AA* aai){
 /// the procedure to design a new sequence
 /// \param temperature sets the temperature for the energy
 /// \param numSteps the number of MC steps
-void Design2D::designProcedure(double temperature, long numSteps){
+void Design2D::designProcedure(double temperature, long numSteps, int designcase){
 
- 
+
   mainLattice->setBetaMoves(0.01/temperature);
- 
+
   mainLattice->stats.getLatticeStats(mainLattice);
   systemVar = getSystemVar();
+  printf("\ninitial systemVar: %f\n",systemVar);
   for(long i=0;i<numSteps;i++){
     // change AA
-    changeAA((int) floor(mainLattice->nChains * drand48()));
+    changeAA((int) floor(mainLattice->nChains * drand48()),designcase);
     //checkVariance();
   }
   mainLattice->checkStats();
@@ -109,7 +110,7 @@ void Design2D::checkVariance(){
   double calcVar = getSystemVar();
   if(systemVar*1.01 < calcVar || systemVar*0.99 > calcVar){
     cout <<"WARNING! in design process accummulative variance:"<<systemVar;
-    cout <<" does not match calc variance:" <<getSystemVar()<<endl;  
+    cout <<" does not match calc variance:" <<getSystemVar()<<endl;
     //exit(1);
  }
 }
@@ -117,13 +118,13 @@ void Design2D::checkVariance(){
 
 /// substitutes an amino acid, and updates the statistics
 /// \param chain integer of the chain to design
-void Design2D::changeAA(int chain){
+void Design2D::changeAA(int chain, int designcase){
   // get pointer to chain (and sequence)
   Chain2D * c = mainLattice->chains[chain];
- 
+
   // choose random residues
   int n = (int) floor(c->N * drand48());
-  
+
   // get pointer to residue
   Residue2D * res = c->residues[n];
 
@@ -135,25 +136,36 @@ void Design2D::changeAA(int chain){
 
   // if nothing changed return
   if(oldAA==newAA)return;
-  
+
 
   /* START CODING HERE */
   // calculate the incremtal variance
   // the array countAA holds the counts of each amino acid
   // the array expAA holds an observed distribution of AAs
-  
+
   // localVar should be the change in variance
   // accVar should be your acceptance ratio
- 
+
 
   double localVar=1.0;
   double accVar=1.0;
 
-
+  if(designcase==1) {
   // case 1 using variance
   // try to avoid using the factorial function
-  
+  localVar*=(double)(countAA[oldAA]/(countAA[newAA]+1.0));
+  accVar*=pow(localVar,1.0/q_variationStrength);
+  }
+  else if(designcase==2) {
   // case 2 using an amino acid distribution in expAA
+  int numOfRes = mainLattice->aaInt->getNumberOfAA();
+  localVar=0.0;
+  localVar+=-pow(expAA[oldAA]-countAA[oldAA]/numOfRes,2.0);
+  localVar+=pow(expAA[oldAA]-(countAA[oldAA]-1.0)/numOfRes,2.0);
+  localVar+=pow(expAA[newAA]-(countAA[newAA]+1.0)/numOfRes,2.0);
+  localVar+=-pow(expAA[newAA]-countAA[newAA]/numOfRes,2.0);
+  accVar=exp(-1.0/(q_variationStrength*localVar));
+  }
 
   /*  END CODING HERE */
 
@@ -164,11 +176,11 @@ void Design2D::changeAA(int chain){
   if(!(drand48()<accVar)){
     return;
   }
-  
+
   // calculate new and old statistics
   // (don't worry about the details)
-  Stats oldLocalStats; 
-  Stats newLocalStats; 
+  Stats oldLocalStats;
+  Stats newLocalStats;
   oldLocalStats.localStats(res,res->pos,oldAA,mainLattice);
   newLocalStats.localStats(res,res->pos, newAA,mainLattice);
   Stats newLatticeStats =  mainLattice->stats.delta(newLocalStats,oldLocalStats);
@@ -176,8 +188,8 @@ void Design2D::changeAA(int chain){
 
   // calcute boltzman factor
   double boltz = exp(((-(float) (dE)) )*  mainLattice->getBetaMoves());
-  bool accept=  dE<=0 || (drand48() < boltz);    
-  
+  bool accept=  dE<=0 || (drand48() < boltz);
+
   // accept move according to energy
   if(accept){
     // update the amino acids in the sequence
@@ -191,11 +203,14 @@ void Design2D::changeAA(int chain){
     if(oldAA!=newAA){
       /* START CODING HERE */
 
+      if(designcase==1) {
       // case 1
-      // systemVar *= localVar;
-
+      systemVar *= localVar;
+      }
+      else if(designcase==2) {
       // case 2
-      // systemVar += localVar;
+      systemVar += localVar;
+      }
 
       /*  END CODING HERE */
 
@@ -222,7 +237,7 @@ void Design2D::initCountAA(){
   systemVar = getSystemVar();
 }
 
-/// calculates factorial 
+/// calculates factorial
 long factorial(long number) {
   long temp;
   if(number <= 1) return 1;
@@ -249,7 +264,7 @@ double Design2D::getSystemVar2(){
   double dist=0;
   int numOfRes = mainLattice->aaInt->getNumberOfAA();
   for(int i=0;i<numOfRes;i++){
-    if(countAA[i]){ 
+    if(countAA[i]){
       dist += (countAA[i] - expAA[i])*(countAA[i] - expAA[i]);
     }
   }
@@ -285,7 +300,7 @@ void Design2D::writeDesignStats(string fn_pdb){
     }
     cout<<endl;
   }
-  //Stats internal energy 
+  //Stats internal energy
   cout<< mainLattice->stats.print2string();
   //sequence variance
   cout<<"systemsVar:"<<systemVar<<endl;

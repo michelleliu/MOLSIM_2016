@@ -26,8 +26,8 @@ Simulation2D::Simulation2D(string fn_aa){
 
 /// initialise simulation and create lattice
 void Simulation2D::init(string fn_pdb){
-  
-  
+
+
   lattice->readPDBMultiChain(fn_pdb);
   setTemperature(0.2);
   lattice->stats.getLatticeStats(lattice);
@@ -47,15 +47,15 @@ int Simulation2D::simulate ( int nMcSteps, double temperature, int step){
 
   // get a pointer to the chain to simulate (first chain on the lattice)
   Chain2D * chain= lattice->chains[0];
- 
+
  // set the temperature
   setTemperature(temperature);
 
   // set the fraction of global moves (point rotations)
   double pGlobal= 0.1;
 
-  // keep the accumalitive statistics for the 
-  // and number of native contacts (sumCn) 
+  // keep the accumalitive statistics for the
+  // and number of native contacts (sumCn)
   double sumCn=0;
 
   // calculate the the fraction of sampling
@@ -93,30 +93,34 @@ void Simulation2D::printCv(string fn_out, int total_steps, int totalSamples){
   // open file
   ofstream outs;
   cout<< "printing to "<< fn_out<<endl;
-  outs.open(fn_out.c_str()); 
+  outs.open(fn_out.c_str());
 
   // loop over the temperatures
   for(int step =0; step< total_steps;step++){
 
-    // START CODING HERE                                                       
-    // calculate the heat capacity (Cv*kB)                                     
-    // by using energyTable and temperatureTable  
+    // START CODING HERE
+    // calculate the heat capacity (Cv*kB)
+    // by using energyTable and temperatureTable
     double Cv=1.0;
 
     //first calculate the ensemble average over the energy
-    //double sumEnergy =0;
-    
-    // loop over all samples stored in energyTable, upto totalSamples
-    //for (int sample=0;sample < totalSamples;sample++)...
-      
+    double sumEnergy =0;
 
-    // then calculate the average energy fluctuation 
-    //double sumSqDiff=0;
-    //for (int sample=0;sample < totalSamples;sample++)...
-   
+    // loop over all samples stored in energyTable, upto totalSamples
+    for (int sample=0;sample < totalSamples;sample++) {
+      sumEnergy += energyTable[step][sample];
+    }
+
+
+    // then calculate the average energy fluctuation
+    double sumSqDiff=0;
+    for (int sample=0;sample < totalSamples;sample++) {
+      sumSqDiff += pow(energyTable[step][sample]-sumEnergy*1.0/totalSamples,2.0);
+    }
+
     // finally calculate the Cv using temperatureTable
     double temperature = temperatureTable[step];
-    // Cv =  ...
+    Cv = ((double)sumSqDiff/totalSamples)/(pow(temperature,2.0));
 
     // END CODING HERE
 
@@ -135,7 +139,7 @@ void Simulation2D::printCn(string fn_out, int total_steps){
   // open file
   ofstream outs;
   cout<< "printing to "<< fn_out<<endl;
-  outs.open(fn_out.c_str()); 
+  outs.open(fn_out.c_str());
 
  // loop over the temperatures
   for(int step =0; step< total_steps;step++){
@@ -178,7 +182,7 @@ double Simulation2D::getTotalNativeContacts(){
 void Simulation2D::setTemperature	(double dTemperature){
   lattice->setBetaMoves(0.01/dTemperature);
 }
- 
+
 
 /*void Simulation2D::stretch(){
 
