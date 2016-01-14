@@ -3,7 +3,10 @@
 #include "math.h"
 #include "string.h"
 
+#ifndef DANGLEMAX
 #define DANGLEMAX 2.0  /* a random rotation (in degrees) of the velocity vector is taken from [-DANGLEMAX,DANGELMAX] */
+#endif
+
 #define MAXLINE 128
 #define MAXFRAME 10000
 #define NATOMS 15
@@ -75,21 +78,21 @@ void apply_reflective_boundaries(double xpos[NATOMS],double ypos[NATOMS],
 				 double xvel[NATOMS],double yvel[NATOMS]);
 double compute_lambda(double px1,double py1, double px2, double py2);
 void compute_lambda_distr(double *lambda,int npathlength);
-                  
+
 /* force.c */
 void force(double xpos[NATOMS], double ypos[NATOMS],
 	   double xforce[NATOMS], double yforce[NATOMS], double *vpot);
-     
+
 /* integrate.c */
 int integrate(
 		double *vpot,double *ekin,double *lambda,
     int istart, int nsteps, int isign, int icheckstate);
-     
+
 /* read.c */
 void read_input(char *filename,double *etot,int *lrestart);
 void read_restart(double xpos[NATOMS],double ypos[NATOMS],double xvel[NATOMS],double yvel[NATOMS]);
-    
-/* write.c */    
+
+/* write.c */
 void write_restart();
 void write_frame(FILE *fpout, double xpos[NATOMS], double ypos[NATOMS],
     int ipath, int istep);

@@ -1,6 +1,6 @@
 METHOD TPS           # MD/TPS/COMMITTOR
 ETOT  9.0            # target total energy in NVE simulation
-PATHLENGTH 4000      # total number of MD steps per path
+PATHLENGTH 2000      # total number of MD steps per path
 TIMESTEP 0.002       # MD timestep
 NPRINTFRAME 10       # output frequency of positions and energies per path
 NPRINTPATH 100       # output frequency of paths
@@ -12,6 +12,6 @@ BARRIERWIDTH 0.25    # w
 NPATHS 1000          # Number of successful pathways to generate
 MAX_TRAIL_TPS 1000   # Max number of trail moves to get accepted path in TPS
 RESTART 1            # if equal to 1 then read initial path from file "restart.in"
-RESTARTFILE restart.out # restart input filename
-RESTARTFROMFRAME 1 # take initial configuration from this frame of restart file
+RESTARTFILE ../../1-MD/restart.out # restart input filename
+RESTARTFROMFRAME 47150 # take initial configuration from this frame of restart file
 RESTARTOUT 1         # if equal to 1 write (last) trajectory to restart.out

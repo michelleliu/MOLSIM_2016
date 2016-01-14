@@ -1,0 +1,8 @@
+DANGLEMAX: 2.000000
+  Performing Committor Analysis simulation
+  - frame number to shoot from: 1589
+  - number of shooting paths  : 100
+  - Generating initial configuration from restart file restart.tps, frame 1589
+  - lambda[frame 1589] =     1.348765
+ p = 0.47
+ Simulation finished

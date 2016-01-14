@@ -1,0 +1,40 @@
+#!/bin/bash
+cat > plot_lambda_batch<<EOF
+set xlabel 'time / steps'
+set ylabel 'lambda'
+set title 'MD simulation'
+set grid
+set yrange[0:*]
+EOF
+
+cat > plot_distribution_batch<<EOF
+set xlabel 'lambda'
+set ylabel 'P(lambda)'
+set title 'MD simulation'
+set grid
+set yrange[0:*]
+EOF
+
+echo "plot " | tr -d "\n" >> plot_lambda_batch
+echo "plot " | tr -d "\n" >> plot_distribution_batch
+
+for height in 0.25 0.50 0.75 1.0 1.25 1.50 1.75 2.0
+do
+
+echo "'$height/lambda.out' u 2:3 w l," | tr -d "\n" >> plot_lambda_batch
+echo "'$height/distribution.out' u 1:2 w l," | tr -d "\n" >> plot_distribution_batch
+
+done
+
+cat >> plot_lambda_batch<<EOF
+
+pause -1 "Hit return to continue"
+EOF
+
+cat >> plot_distribution_batch<<EOF
+
+pause -1 "Hit return to continue"
+EOF
+
+chmod +x plot_lambda_batch
+chmod +x plot_distribution_batch

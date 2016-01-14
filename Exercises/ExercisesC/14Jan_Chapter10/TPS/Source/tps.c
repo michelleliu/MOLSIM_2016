@@ -5,7 +5,7 @@ void finish(){
 
   /* write last path to restart file  */
   write_restart();
-  
+
   /* finalize and exit  */
   printf(" Simulation finished\n");
   fclose(fpout_p);
@@ -28,7 +28,7 @@ void do_tps(){
 
   /* main TPS loop */
   while(ipath < npaths){
-  
+
     if(ishiftshoot == 1){
       /* try random shooting move */
       ishiftshoot = 2;
@@ -39,10 +39,10 @@ void do_tps(){
       for(iat=0;iat<NATOMS;iat++){
         angle = 2.0 * DANGLEMAX * (myrandom() - 0.5);
         angle *= M_PI / 180.0;
-        px_try[iframe][iat] = px[iframe][iat]; 
-        py_try[iframe][iat] = py[iframe][iat]; 
-        vx_try[iframe][iat] = vx[iframe][iat] * cos(angle) - vy[iframe][iat] * sin(angle) ; 
-        vy_try[iframe][iat] = vy[iframe][iat] * cos(angle) + vx[iframe][iat] * sin(angle); 
+        px_try[iframe][iat] = px[iframe][iat];
+        py_try[iframe][iat] = py[iframe][iat];
+        vx_try[iframe][iat] = vx[iframe][iat] * cos(angle) - vy[iframe][iat] * sin(angle) ;
+        vy_try[iframe][iat] = vy[iframe][iat] * cos(angle) + vx[iframe][iat] * sin(angle);
       }
       istart = iframe;
       nforward = npathlength - iframe;
@@ -54,26 +54,26 @@ void do_tps(){
       istart = npathlength / 2 - 1;
       iframe = (int) (npathlength * myrandom());
       for(iat=0;iat<NATOMS;iat++){
-        px_try[istart][iat] = px[iframe][iat]; 
-        py_try[istart][iat] = py[iframe][iat]; 
-        vx_try[istart][iat] = vx[iframe][iat]; 
-        vy_try[istart][iat] = vy[iframe][iat]; 
+        px_try[istart][iat] = px[iframe][iat];
+        py_try[istart][iat] = py[iframe][iat];
+        vx_try[istart][iat] = vx[iframe][iat];
+        vy_try[istart][iat] = vy[iframe][iat];
       }
       nforward = npathlength / 2;
       nbackward = npathlength - nforward;
     }
-      
+
     /* run new trial path forward and backward */
     ichk_b = integrate(&vpot[istart],&ekin[istart],&lambda[istart],istart,nbackward,-1,TPS);
     ichk_f = integrate(&vpot[istart],&ekin[istart],&lambda[istart],istart,nforward,1,TPS);
-  
+
     /* if trial path is accepted store path and write some output */
     if( (ichk_b == 0) && (ichk_f == 1) ){
       if(ishiftshoot==1) nacceptshift++;
       if(ishiftshoot==2) nacceptshoot++;
       ipath++;
       store_trailpath();
-  
+
       /* write output */
       if(ipath%nprintpath == 0){
         printf("  Path %d accepted in %d trails. Acceptance Ratios: %6.3lf (shifting) %6.3lf (shooting)\n",
@@ -96,16 +96,16 @@ void do_tps(){
 /* return committor value of this frame by shooting random pathways   */
 double do_committor(int istart, double etot){
   int iat, ipath, icheck;
-  double xforce[NATOMS], yforce[NATOMS]; 
+  double xforce[NATOMS], yforce[NATOMS];
   double p;
 
   p = 0.0;
   for(iat=0;iat<NATOMS;iat++){
-    px_try[0][iat] = px[istart][iat]; 
+    px_try[0][iat] = px[istart][iat];
     py_try[0][iat] = py[istart][iat];
   }
   force(px_try[0],py_try[0],xforce,yforce,vpot);
-  
+
   for(ipath=0;ipath<npaths;ipath++){
     init_vel(vx_try[0],vy_try[0]);
     scale_vel(vpot[0],etot,vx_try[0],vy_try[0]);
@@ -119,14 +119,15 @@ double do_committor(int istart, double etot){
 
 int main(int nvar, char **cvar){
   int lrestart;
-  double etot, xforce[NATOMS], yforce[NATOMS]; 
+  double etot, xforce[NATOMS], yforce[NATOMS];
+  printf("DANGLEMAX: %f\n",DANGLEMAX);
   /* read input file */
   if(nvar != 2) usage(cvar[0]);
   read_input(cvar[1],&etot,&lrestart);
 
   /* initialize */
   initialize();
-  
+
   /* get initial configuration */
   if(lrestart){
     /* either from restart file */
@@ -136,7 +137,7 @@ int main(int nvar, char **cvar){
     init_pos(px_try[0],py_try[0]);
     init_vel(vx_try[0],vy_try[0]);
   }
-  
+
   /* scale velocites to get target total energy and generate (initial) trajectory */
   if( imethod != COMMITTOR ){
     force(px_try[0],py_try[0],xforce,yforce,&vpot[0]);
@@ -164,7 +165,7 @@ int main(int nvar, char **cvar){
     printf(" p = %g\n",do_committor(0,etot));
   }
 
-  
+
   /* finish and exit */
   finish();
   return 0;

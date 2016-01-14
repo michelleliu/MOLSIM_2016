@@ -12,6 +12,6 @@ BARRIERWIDTH 0.25      # w
 NPATHS 100             # Number of successful pathways to generate
 RESTART 1              # if equal to 1 then read initial path from file "restart.in"
 RESTARTFILE restart.out # restart input filename
-RESTARTFROMFRAME XXX    # take initial configuration from this frame of restart file
+RESTARTFROMFRAME 198001    # take initial configuration from this frame of restart file
 RESTARTOUT 0           # if 1 then write last trajectory to restart.out (file can be large!)
 

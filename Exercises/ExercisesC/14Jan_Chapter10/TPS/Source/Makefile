@@ -1,7 +1,7 @@
 CC          = gcc
 CLINKER     = gcc
 
-CFLAGS      =   -Wall -O4 -g 
+CFLAGS      =   -Wall -O4 -g -DDANGLEMAX=${angle}
 LIBS        = -lm
 DEPEND= makedepend
 

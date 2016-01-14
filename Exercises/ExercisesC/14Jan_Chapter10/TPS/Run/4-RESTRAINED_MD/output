@@ -1,0 +1,10 @@
+DANGLEMAX: 2.000000
+  WARNING, unknown keyword: 
+
+  Performing Committor Analysis simulation
+  - frame number to shoot from: 198001
+  - number of shooting paths  : 100
+  - Generating initial configuration from restart file restart.out, frame 198001
+  - lambda[frame 198001] =     1.354697
+ p = 0.44
+ Simulation finished

@@ -1,0 +1,7 @@
+set xlabel 'time / steps'
+set ylabel 'lambda'
+set title 'MD simulation'
+set grid
+set yrange[0:*]
+plot '0.25/lambda.out' u 2:3 w l,'0.50/lambda.out' u 2:3 w l,'0.75/lambda.out' u 2:3 w l,'1.0/lambda.out' u 2:3 w l,'1.25/lambda.out' u 2:3 w l,'1.50/lambda.out' u 2:3 w l,'1.75/lambda.out' u 2:3 w l,'2.0/lambda.out' u 2:3 w l,
+pause -1 "Hit return to continue"

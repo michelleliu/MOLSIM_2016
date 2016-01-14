@@ -1,10 +1,26 @@
+#!/bin/bash
+
+for height in 0.25 0.50 0.75 1.0 1.25 1.50 1.75 2.0
+do
+
+mkdir $height
+cd $height
+
+cat > input_md<<EOF
 METHOD MD            # MD/TPS/COMMITTOR
-ETOT 20.0            # target total energy in NVE simulation
+ETOT 9.0             # target total energy in NVE simulation
 PATHLENGTH 100000    # total number of MD steps per path
 TIMESTEP 0.002       # MD timestep
 NPRINTFRAME 10       # output frequency of positions and energies per path
 EPSILON 1.0          # epsilon
-BARRIERHEIGHT 2.0    # h
+BARRIERHEIGHT $height    # h
 BARRIERWIDTH 0.25    # w
 RESTART 0            # if equal to 1 then read initial path from file "restart.in"
 RESTARTOUT 1         # if 1 then write last trajectory to restart.out (file can be large!)
+EOF
+
+time ../../../Source/tps.x input_md
+
+cd ../
+
+done

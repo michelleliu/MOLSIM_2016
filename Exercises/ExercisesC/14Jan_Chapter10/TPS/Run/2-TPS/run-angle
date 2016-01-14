@@ -1,0 +1,14 @@
+#! /bin/bash
+
+#for x in 0.5 1.0 1.5 2.0 2.5 3.0 4.0 5.0
+for x in 1.75 1.85 1.9 1.95 2.0 2.05 2.10 2.15 2.25
+do
+
+mkdir $x
+cd $x
+
+time ../../../Source/tps.x-$x ../input_tps
+cd ../
+
+done
+
